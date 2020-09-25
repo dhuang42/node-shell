@@ -1,13 +1,12 @@
 const fs = require("fs");
 
-function printDirectory() {
+module.exports = (done) => {
   fs.readdir("./", "utf8", (err, files) => {
     if (err) throw error;
     else {
-      process.stdout.write(files.join("    "));
-      process.stdout.write("\nprompt > ");
+      done(files.join('    '));
     }
   });
 }
 
-module.exports.printDirectory = printDirectory;
+

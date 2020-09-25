@@ -1,13 +1,10 @@
 const fs = require("fs");
 
-function printFile(filename) {
+module.exports = (filename, done) => {
   fs.readFile(filename, "utf8", (err, file) => {
     if (err) throw error;
     else {
-      process.stdout.write(file);
-      process.stdout.write("\nprompt > ");
+      done(file);
     }
   });
 }
-
-module.exports.printFile = printFile;

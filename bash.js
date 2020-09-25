@@ -6,20 +6,25 @@ const curl = require('./curl.js');
 process.stdout.write("prompt > ");
 
 process.stdin.on("data", (data) => {
+  let filename;
   const cmd = data.toString().trim().split(' ')[0];
-  if (cmd === "pwd") pwd.wrappedCwd();
-  if (cmd === "ls") ls.printDirectory();
-  let filename = data.toString().trim().split(' ')[1];
-  if (filename[0] !== '.') {
-    if (filename[0] !== 'h') filename = `./${filename}`
-  };
-  console.log(filename);
-  if (cmd === 'cat') cat.printFile(filename);
+  if (cmd === "pwd") pwd(done);
 
-  if (cmd === 'curl') curl.printPage(filename);
+  if (cmd === "ls") ls(done);
 
-  /*
-  process.stdout.write("You typed " + cmd);
-  process.stdout.write("\nprompt > ");
-  */
+  if (data.toString().trim().split(' ')[1] !== null) {
+    filename = data.toString().trim().split(' ')[1];
+    if (filename[0] !== '.') {
+      if (filename[0] !== 'h') filename = `./${filename}`
+    };
+  }
+
+  if (cmd === 'cat') cat(filename, done);
+
+  if (cmd === 'curl') curl(filename, done);
 });
+
+const done = (output) => {
+  process.stdout.write(output);
+  process.stdout.write("\nprompt > ")
+}

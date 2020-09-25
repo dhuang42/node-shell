@@ -4,14 +4,11 @@ const request = require('request');
 
 
 
-function printPage(link) {
+module.exports = (link, done) => {
   request(link, function (err, response, printedHtml) {
     if (err) throw error;
     else {
-      process.stdout.write(printedHtml);
-      process.stdout.write("\nprompt > ");
+      done(printedHtml);
     }
   });
 }
-
-module.exports.printPage = printPage;

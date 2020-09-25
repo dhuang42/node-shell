@@ -1,7 +1,4 @@
-function wrappedCwd() {
+module.exports = (done) => {
   cachedCwd = process.cwd();
-  process.stdout.write(cachedCwd);
-  process.stdout.write("\nprompt > ");
+  done(cachedCwd);
 }
-
-module.exports.wrappedCwd = wrappedCwd;
